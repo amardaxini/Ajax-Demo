@@ -1,0 +1,23 @@
+<% content_for :head do%>
+  <script>
+  $("#date_month").live("change",function(){
+    month_value = $(this).val(); //$("#date_month").val();
+   $.ajax({
+        type: "GET",
+        url: <%= display_month_states_path %>,
+        data:"month_id="+month_value,
+        beforeSend:function(){
+          $(".spinner").show();
+         },       
+        success: function(html){
+          $("#month_data").html(html);
+          $(".spinner").hide();
+        }
+      });
+     }); 
+  </script>
+<% end %>
+<%= select_month(14, :prompt => 'Choose month') %>
+<div id="month_data">
+  <%= render :partial=>'month' %>
+</div>

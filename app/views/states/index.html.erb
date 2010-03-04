@@ -1,0 +1,23 @@
+<h1>Listing states</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Population</th>
+  </tr>
+
+<% @states.each do |state| %>
+  <tr>
+    <td><%=h state.name %></td>
+    <td><%=h state.population %></td>
+    <td><%= link_to 'Show', state %></td>
+    <td><%= link_to 'Edit', edit_state_path(state) %></td>
+    <td><%= link_to 'Destroy', state, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to "add cities", state_cities_path(state) %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New state', new_state_path %>

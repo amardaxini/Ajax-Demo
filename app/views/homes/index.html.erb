@@ -1,0 +1,25 @@
+<% content_for :head do %>
+  <script>
+    $(document).ready(function() {
+ 	    $("#listing_states").toggle(
+		    function(){
+		      $("#header").slideDown();
+	      },
+		  function(){
+	      $("#header").slideUp();
+  			}
+	    );
+    });
+  </script>
+<% end %>
+<h1>This is an slideup and slide down effect</h1><br />
+<span id="listing_states" style="cursor:pointer">Listing of state Click here </span>
+
+<div id="header" style="display:none">
+  
+    <% for  state in State.all %>
+      <p id="listing_state"><%= state.name %>  </p>
+    <% end %>
+   
+</div>  
+

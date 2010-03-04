@@ -1,0 +1,21 @@
+<h1>Editing city</h1>
+
+<% form_for([@state,@city]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :population %><br />
+    <%= f.text_field :population %>
+  </p>
+ 
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', state_city_path(@state) %> |
+<%= link_to 'Back', state_cities_path(@state) %>

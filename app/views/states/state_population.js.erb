@@ -1,0 +1,21 @@
+<table border=1>
+  <thead>
+    <tr>
+    <th>state name</th>
+    <th>city name </th>
+    <th>city population </th>
+    <th>State Population </th>
+    </tr>  
+  </thead>
+  <tbody>
+  
+    <% for city in @cities %>
+      <tr>
+        <td><%= @state.name %></td>
+        <td><%= city.name %> </td>
+        <td><%= city.population %> </td>
+        <td><%= @state.population %> </td>
+      </tr>
+    <% end %>  
+  </tbody>
+</table>  

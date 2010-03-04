@@ -1,0 +1,18 @@
+<p>
+  <b>Name:</b>
+  <%=h @city.name %>
+</p>
+
+<p>
+  <b>Population:</b>
+  <%=h @city.population %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @city.state_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_state_city_path(@state,@city) %> |
+<%= link_to 'Back', state_cities_path(@state) %>

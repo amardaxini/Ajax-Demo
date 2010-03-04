@@ -1,0 +1,122 @@
+<% content_for :head do%>
+  <script> 
+  
+     $(document).ready(function(){
+      
+
+      //when dom is loaded or reloaded
+      // it fires ajax queries to load city list
+      // it calls city list page whatever html returns it sets at the city id
+       initial_state_id = $("#state_name").val();
+       $.ajax({
+         type: "GET",
+         url: "/states/city_list", //or<%= city_list_states_path%>
+         data: "state_id="+initial_state_id,
+         beforeSend:function(){
+          $(".spinner").show();
+          },
+         success: function(html){
+           $("#city").html(html);
+           $(".spinner").hide();
+         }
+       });
+      //ajax query for any content 
+      //here table is loaded dynamically
+           
+      $.ajax({
+        type: "GET",
+        url: "/states/state_population", //or<%= state_city_population_states_path%>
+        data: "state_id="+initial_state_id,
+        beforeSend:function(){
+          $(".spinner").show();
+          },       
+        success: function(html){
+          $("#table_for_state_and_city").html(html);
+          $(".spinner").hide();
+        }
+      });
+    });  
+    
+    //when state is changed again it fires city list and sets html at city span
+     $("#state_name").live("change",function(){
+       change_state_id = $("#state_name").val();
+       $.ajax({
+        type: "GET",
+        url: "/states/city_list", //or<%= city_list_states_path%>
+        data: "state_id="+change_state_id,
+        beforeSend:function(){
+          $(".spinner").show();
+          },
+        success: function(html){
+          $("#city").html(html);
+          $(".spinner").hide();
+        }
+      });
+      
+      $.ajax({
+        type: "GET",
+        url: "/states/state_population", //or<%= state_population_states_path%>
+        data: "state_id="+change_state_id, 
+        beforeSend:function(){
+          $(".spinner").show();
+          }  ,    
+        success: function(html){
+          $("#table_for_state_and_city").html(html);
+          $(".spinner").hide();
+        }
+      });
+    });  
+    
+    //when city is selected or changed
+    $("#city_name").live("change",function(){
+      change_state_id = $("#state_name").val();
+      change_city_id = $("#city_name").val();
+      if (change_city_id != "")
+      {
+        $.ajax({
+          type: "GET",
+          url: "/states/state_city_population", //or<%= state_city_population_states_path%>
+          data: "state_id="+change_state_id+"&city_id="+change_city_id, 
+          beforeSend:function(){
+          $(".spinner").show();
+          } ,     
+          success: function(html){
+            $("#table_for_state_and_city").html(html);
+            $(".spinner").hide();
+          }
+        });
+      }
+     else
+     {
+      $.ajax({
+        type: "GET",
+        url: "/states/state_population", //or<%= state_population_states_path%>
+        data: "state_id="+change_state_id,      
+        beforeSend:function(){
+          $(".spinner").show();
+          }, 
+        success: function(html){
+          $("#table_for_state_and_city").html(html);
+          $(".spinner").hide();
+        }
+      });
+      
+      } 
+    });  
+  </script>
+<% end%>
+<div>
+  State 
+<span id="states">
+  <%= collection_select :state,:name,@states,:id,:name%>
+  <%= select_month(14, :prompt => 'Choose month') %>
+
+</span>
+City
+<span id="city"> 
+
+</span>
+
+<div id="table_for_state_and_city" style="margin:10px"></div>
+</div>
+<div class="spinner">&nbsp;</div>

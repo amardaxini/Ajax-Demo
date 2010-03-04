@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  population: 1.5
+  state_id: 1
+
+two:
+  name: MyString
+  population: 1.5
+  state_id: 1
